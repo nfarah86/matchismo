@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
 
 
 @interface ViewController ()
@@ -46,6 +47,31 @@
     
 }
 
+
+- (IBAction)clickOnDeal:(UIButton *)sender
+{
+    //click on deal to reshuffle the cards
+    
+    if(sender)
+        //when the deal button is clicked
+    {
+        CardMatchingGame * newCards = [self.game initWithCardCount:[self.cardButtons count] usingDeck: self.deck];
+        for(NSUInteger i = 0; i < [self.cardButtons count]; i++)
+        {
+            PlayingCard* newCardAtIndex = (PlayingCard * )[newCards cardAtIndex:i];
+            UIButton* cardButtonInView = self.cardButtons[i];
+            
+            cardButtonInView.enabled = !newCardAtIndex.isMatched;
+            
+            [cardButtonInView setTitle:[self titleForCard: newCardAtIndex]forState:UIControlStateNormal];
+            [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
+            self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
+        }
+        
+    }
+    
+    
+}
 
 
 -(void)updateUI

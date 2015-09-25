@@ -37,6 +37,9 @@
     self = [super init]; //override NSObject
     //NSObject initializer is init
     if(self){
+        
+        self.cards = [NSMutableArray array];
+        
         for (int i=0; i< count; i++){
             Card* card = [deck drawRandomCard];
             if(card){
