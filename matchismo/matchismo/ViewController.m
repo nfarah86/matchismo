@@ -55,11 +55,11 @@
     if(sender)
         //when the deal button is clicked
     {
-        [self createNewDeckOnUI];
+        [self _createNewDeckOnUI];
     }
 }
 
-- (void)createNewDeckOnUI
+- (void)_createNewDeckOnUI
 {
         CardMatchingGame * newCards = [self.game initWithCardCount:[self.cardButtons count] usingDeck: self.deck];
         for(NSUInteger i = 0; i < [self.cardButtons count]; i++)
@@ -108,7 +108,12 @@
     NSLog(@"THIS IS the index %ld", segmentIndex);
     if (segmentIndex == 0)
     {
-        [self createNewDeckOnUI];
+        [self _createNewDeckOnUI];
+    }
+    
+    if (segmentIndex == 1)
+    {
+        [self _createNewDeckOnUI];
     }
     
     //if/else
