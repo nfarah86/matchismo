@@ -100,4 +100,17 @@
     return [UIImage imageNamed:(card.isChosen) ? @"frontCard" : @"back_card"];
 }
 
+- (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender {
+    NSInteger segmentIndex = [sender selectedSegmentIndex];
+    NSLog(@"THIS IS the index %ld", segmentIndex);
+    
+    
+    //if/else
+    
+    //reinti
+    //
+    
+}
+
+
 @end
