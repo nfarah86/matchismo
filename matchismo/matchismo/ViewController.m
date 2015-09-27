@@ -55,6 +55,12 @@
     if(sender)
         //when the deal button is clicked
     {
+        [self createNewDeckOnUI];
+    }
+}
+
+- (void)createNewDeckOnUI
+{
         CardMatchingGame * newCards = [self.game initWithCardCount:[self.cardButtons count] usingDeck: self.deck];
         for(NSUInteger i = 0; i < [self.cardButtons count]; i++)
         {
@@ -67,11 +73,8 @@
             [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
         }
-        
-    }
-    
-    
 }
+
 
 
 -(void)updateUI
@@ -103,12 +106,16 @@
 - (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender {
     NSInteger segmentIndex = [sender selectedSegmentIndex];
     NSLog(@"THIS IS the index %ld", segmentIndex);
-    
+    if (segmentIndex == 0)
+    {
+        [self createNewDeckOnUI];
+    }
     
     //if/else
     
     //reinti
-    //
+    //later on, we should have a pop up that says you want to have a 2 or 3 card matching game..ie choose your game.
+    
     
 }
 
