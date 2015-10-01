@@ -120,7 +120,6 @@
 }
     
     NSMutableArray* uniqueMatchArray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    NSLog(@"UNIQUE ARRAY %@", uniquearray);
     
     NSLog(@" %ld TOTAL IN MATCHED CARDS", [self.matchedCards count]);
     NSLog(@"this is other cards left %@", self.matchedCards);
