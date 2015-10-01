@@ -7,6 +7,7 @@
 //
 
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
 
 @interface CardMatchingGame ()
 @property(nonatomic, readwrite) NSInteger score;
@@ -17,6 +18,7 @@
 //public api can set score, without a warning.
 
 @property(nonatomic, strong) NSMutableArray* cards; //of Card
+@property(nonatomic, strong) NSMutableArray* chosenCards;
 
 
 @end
@@ -39,6 +41,8 @@
     if(self){
         
         self.cards = [NSMutableArray array];
+        self.chosenCards = [NSMutableArray array];
+        
         
         for (int i=0; i< count; i++){
             Card* card = [deck drawRandomCard];
@@ -56,9 +60,9 @@
     return self;
 }
 
+
 -(Card *)cardAtIndex:(NSUInteger)index
 {
-    NSLog(@"%lu cards in array", [self.cards count]);
     return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
@@ -67,44 +71,60 @@ static const int MISMATCH_PENALTY = 2;  // this is typed so it will show in the 
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
 
-- (void)chooseCardAtIndex:(NSUInteger)index
+- (void)chooseCardAtIndex:(NSUInteger)index atSelectedSegmentIndex: (NSInteger) segmentIndex
 {
     Card *card = [self cardAtIndex:index];
-    NSLog(@"%@ we have a card this is going to match", card);
+    card.chosen = YES;
+    [self.chosenCards addObject:card];
+    int score;
+
+     NSLog(@"LENGTH of array in game match in segment 0 is %ld", [self.chosenCards count]);
     
-    if (!card.isMatched) {
-        if (card.isChosen) {
-            card.chosen = NO;
-        } else {
+//    
+//    if (!card.isMatched) {
+//        if (card.isChosen)
+//        {
+//            card.chosen = NO;
+//            NSLog(@"this if in game match is working");
+//        }else
+    
+        if (([self.chosenCards count] == 3) && segmentIndex == 0){
+    
+            NSLog(@"LENGTH of array in game match in segment 0 is %ld", [self.chosenCards count]);
+            
             // match against another card
-            for (Card *otherCard in self.cards) {
-                if (otherCard.isChosen && !otherCard.isMatched) {
-                    int matchScore = [card match:@[otherCard]];
+            
+            //for (Card *otherCard in self.chosenCards) {
+                //if (otherCard.isChosen && !otherCard.isMatched) {
+            
+            NSLog(@"BEFORE METHOD");
+                    int matchScore = [card match:self.chosenCards];
+            
                     
-                    if (matchScore) {
+                    //if (matchScore) {
                         // increase score
-                        self.score += (matchScore * MATCH_BONUS);
+                       // self.score += (matchScore * MATCH_BONUS);
                         
                         // mark cards as matched
-                        card.matched = YES;
-                        otherCard.matched = YES;
-                    } else {
+                       // card.matched = YES;
+                      //  otherCard.matched = YES;
+                   // } else {
                         // mismath penalty when cards do no match
-                        self.score -= MISMATCH_PENALTY;
+                      //  self.score -= MISMATCH_PENALTY;
                         
                         // flip othercard
-                        otherCard.chosen = NO;
+                     //   otherCard.chosen = NO;
                     }
                     
-                    break;
-                }
+                //    break;
+                //}
             }
             
-            self.score -= COST_TO_CHOOSE;
-            card.chosen = YES;
-        }
-    }
-}
+           // self.score -= COST_TO_CHOOSE;
+            //card.chosen = YES;
+      //  }
+   // }
+//}
 
 
 

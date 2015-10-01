@@ -14,7 +14,7 @@
 @implementation Card
 
 
-- (int)match:(NSArray *)otherCards
+- (int)match:(NSMutableArray *)otherCards
 {
     int score = 0;
     
@@ -23,6 +23,7 @@
         if ([card.contents isEqualToString:self.
              contents])
         {
+            NSLog(@"card match");
             //card.contents is calling the getter of contents property of card instance. Setter: card.contents = (now we are calling the setter).
             //self.contents is also calling getter
             //isEqualToString (need to compare two strings ie ==)

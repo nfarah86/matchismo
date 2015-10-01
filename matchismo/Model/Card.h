@@ -20,7 +20,7 @@
 //setter method is -(void)setChosen:(BOOL)chosen
 //getter method is: (BOOL)isChosen
 
-- (int)match:(NSArray *)otherCards;
+- (int)match:(NSMutableArray *)otherCards;
 //tell whether two cards matched
 
 @end

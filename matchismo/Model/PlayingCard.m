@@ -7,6 +7,13 @@
 //
 
 #import "PlayingCard.h"
+#import "CardMatchingGame.h"
+
+@interface PlayingCard ()
+
+@property (nonatomic, strong) NSMutableArray* matchedCards;
+
+@end
 
 @implementation PlayingCard
 
@@ -63,18 +70,77 @@
     return _suit ? _suit : @"?";
 }
 
-- (int)match:(NSArray *)otherCards; //override card method
+
+
+
+
+- (NSInteger)match:(NSMutableArray *)otherCards; //override card method
 {
-    int score;
-    if([otherCards count] == 1){
-        PlayingCard *otherCard = [otherCards firstObject];
-        if(otherCard.rank == self.rank){
-            score = 4;
-        } else if(otherCard.suit == self.suit){
-            score = 1;
+    NSInteger score;
+    
+    if(!(self.matchedCards)) self.matchedCards = [NSMutableArray new];
+    
+    for (int i = 0; i <= ([otherCards count]-1); i++)
+    {
+        for (int j= 0; j<= ([otherCards count]-1); j++)
+        {
+            NSLog(@"%ld in for loop other cards", [otherCards count]);
+            if (i != j)
+            {
+                PlayingCard* firstCard = otherCards[i];
+                PlayingCard* secondCard = otherCards[j];
+            
+                
+                if(!([self.matchedCards containsObject:secondCard]))
+                    NSLog(@"CARD ! %ld", [self.matchedCards count]);
+                {
+                
+                    if(firstCard.suit == secondCard.suit)
+                    {
+                        NSLog(@"this is true %ld", firstCard.rank);
+                        NSLog(@"%ld inside SUIT checking match cards", [self.matchedCards count]);
+                        [self.matchedCards addObject:firstCard];
+                        [self.matchedCards addObject:secondCard];
+                        
+                            
+                        NSLog(@"%ld inside 2 SUIT checking match cards", [self.matchedCards count]);
+                        NSLog(@"this is other cards left %ld", [otherCards count]);
+                        
+                    
+                    } else if(firstCard.rank == secondCard.rank){
+                        [self.matchedCards addObject:secondCard];
+                        [self.matchedCards addObject:firstCard];
+                        
+                        NSLog(@"%ld inside rank checking match cards", [self.matchedCards count]);
+                        NSLog(@"this is other cards left %@", self.matchedCards);
+                    }
+                }
+            }
+        }
+}
+    
+    NSMutableArray* uniquearray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    NSLog(@"UNIQUE ARRAY %@", uniquearray);
+    
+    NSLog(@" %ld TOTAL IN MATCHED CARDS", [self.matchedCards count]);
+    NSLog(@"this is other cards left %@", self.matchedCards);
+    
+    if ([self.matchedCards count] ==0) {
+        return 1;
+    }
+    
+    if ([otherCards count] == 3)
+    {
+        if ([self.matchedCards count] == 3) {
+            if ([PlayingCard [self.matchedCards objectAtIndex:0]].rank == [PlayingCard [self.matchedCards objectAtIndex:1]].rank == [PlayingCard [self.matchedCards objectAtIndex:2]].rank)
+            {
+                
+                return 4;
+            }
         }
     }
-    return score;
+     return 1;
 }
 
 @end
+

@@ -168,6 +168,7 @@
                     </view>
                     <connections>
                         <outlet property="score_label" destination="KQ0-c3-paP" id="eer-xc-sTV"/>
+                        <outlet property="segmentedControl" destination="WoT-8M-JuG" id="JFp-5x-0tT"/>
                         <outletCollection property="cardButtons" destination="v6M-tt-GNq" id="q5u-9P-6gM"/>
                         <outletCollection property="cardButtons" destination="SfN-Tx-YsK" id="jeL-6v-sd0"/>
                         <outletCollection property="cardButtons" destination="pJL-t9-oNM" id="YSd-HF-YA2"/>

@@ -8,6 +8,7 @@
 
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
+#import "CardMatchingGame.h"
 @implementation PlayingCardDeck
 
 -(instancetype)init
@@ -24,6 +25,8 @@
                 //set suit
                 [self addCard:card];
                 //add card to deck
+                
+               
                 
             }
         }
