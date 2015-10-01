@@ -119,7 +119,7 @@
         }
 }
     
-    NSMutableArray* uniquearray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    NSMutableArray* uniqueMatchArray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
     NSLog(@"UNIQUE ARRAY %@", uniquearray);
     
     NSLog(@" %ld TOTAL IN MATCHED CARDS", [self.matchedCards count]);
@@ -131,8 +131,8 @@
     
     if ([otherCards count] == 3)
     {
-        if ([self.matchedCards count] == 3) {
-            if ([PlayingCard [self.matchedCards objectAtIndex:0]].rank == [PlayingCard [self.matchedCards objectAtIndex:1]].rank == [PlayingCard [self.matchedCards objectAtIndex:2]].rank)
+        if ([uniqueMatchArray count] == 3) {
+            if ([PlayingCard [uniqueMatchArray  objectAtIndex:0]].rank == [PlayingCard [uniqueMatchArray  objectAtIndex:1]].rank == [PlayingCard [uniqueMatchArray  objectAtIndex:2]].rank)
             {
                 
                 return 4;
