@@ -99,6 +99,7 @@ static const int COST_TO_CHOOSE = 1;
             
             NSLog(@"BEFORE METHOD");
                     int matchScore = [card match:self.chosenCards];
+            NSLog(@"at match method");
             
                     
                     //if (matchScore) {

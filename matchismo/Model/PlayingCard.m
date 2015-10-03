@@ -121,8 +121,7 @@
     
     NSMutableArray* uniqueMatchArray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
     
-    NSLog(@" %ld TOTAL IN MATCHED CARDS", [self.matchedCards count]);
-    NSLog(@"this is other cards left %@", self.matchedCards);
+    NSLog(@" %ld TOTAL IN MATCHED CARDS", [uniqueMatchArray count]);
     
     if ([self.matchedCards count] ==0) {
         return 1;
@@ -131,12 +130,17 @@
     if ([otherCards count] == 3)
     {
         if ([uniqueMatchArray count] == 3) {
-            if ([PlayingCard [uniqueMatchArray  objectAtIndex:0]].rank == [PlayingCard [uniqueMatchArray  objectAtIndex:1]].rank == [PlayingCard [uniqueMatchArray  objectAtIndex:2]].rank)
+            if (([uniqueMatchArray[0]rank] == [uniqueMatchArray[1]rank] && [uniqueMatchArray[1]rank] == [uniqueMatchArray[2]rank]))
             {
-                
+                NSLog(@"ranks match return score");
                 return 4;
             }
-        }
+            if (([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit] && [uniqueMatchArray[1]suit] == [uniqueMatchArray[2]suit]))
+            {
+                NSLog(@"SUITS MATCH RETURN SCORE");
+                return 1;
+            }
+    }
     }
      return 1;
 }
