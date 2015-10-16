@@ -8,16 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "Deck.h"
-#import "Card.h"
+#import "Card.h"9
+
+@protocol CardMatchingGameDelegate <NSObject>
+//-(void) didFindMatch:(NSMutableArray);
+
+
+@end
 
 
 @interface CardMatchingGame : NSObject
 
--(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+-(instancetype) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 //how many cards are we playing with..cards >  2 else
 //return nil
 //designated public initializer; for other classes to see it, must be made public
-- (void)chooseCardAtIndex:(NSUInteger)index;
+- (void)chooseCardAtIndex:(NSUInteger)index atSelectedSegmentIndex: (NSInteger) segmentIndex;
 //method that person can choose a card; specifies card user chose
 
 -(Card *)cardAtIndex: (NSUInteger) index;
