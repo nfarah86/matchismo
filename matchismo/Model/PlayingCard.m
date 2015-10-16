@@ -72,8 +72,6 @@
 
 
 
-
-
 - (NSInteger)match:(NSMutableArray *)otherCards; //override card method
 {
     NSInteger score;
@@ -82,7 +80,7 @@
     
     for (int i = 0; i <= ([otherCards count]-1); i++)
     {
-        for (int j= 0; j<= ([otherCards count]-1); j++)
+        for (int j= 1; j<= ([otherCards count]-1); j++)
         {
             NSLog(@"%ld in for loop other cards", [otherCards count]);
             if (i != j)
@@ -178,7 +176,7 @@
         else if (([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit]))
         {
             NSLog(@"  2 card game match suit");
-            return 1;
+            return 2;
         }
         
     }

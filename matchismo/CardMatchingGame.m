@@ -44,6 +44,7 @@
         
         self.cards = [NSMutableArray array];
         self.chosenCards = [NSMutableArray array];
+        self.score = 0;
         
         
         for (int i=0; i< count; i++){
@@ -76,6 +77,8 @@ static const int COST_TO_CHOOSE = 1;
 {
    
     Card *card = [self cardAtIndex:index];
+    //ViewController segmentedControl.enabled = YES;
+
     card.chosen = YES;
     
     if (card.isChosen) {
@@ -116,5 +119,7 @@ static const int COST_TO_CHOOSE = 1;
     return self.score;
 
 }
+
+
 
 @end

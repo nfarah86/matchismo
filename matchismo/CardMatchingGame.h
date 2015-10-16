@@ -8,7 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Deck.h"
-#import "Card.h"
+#import "Card.h"9
+
+@protocol CardMatchingGameDelegate <NSObject>
+//-(void) didFindMatch:(NSMutableArray);
+
+
+@end
 
 
 @interface CardMatchingGame : NSObject
