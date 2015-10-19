@@ -70,23 +70,18 @@
     return _suit ? _suit : @"?";
 }
 
-
-
-- (NSInteger)match:(NSMutableArray *)otherCards; //override card method
+- (NSMutableArray *) match:(NSMutableArray *)userPickedCards; //override card method
 {
-    NSInteger score;
-
     if(!(self.matchedCards)) self.matchedCards = [NSMutableArray new];
     
-    for (int i = 0; i <= ([otherCards count]-1); i++)
+    for (int i = 0; i <= ([userPickedCards count]-1); i++)
     {
-        for (int j= 1; j<= ([otherCards count]-1); j++)
+        for (int j= 1; j<= ([userPickedCards count]-1); j++)
         {
-            NSLog(@"%ld in for loop other cards", [otherCards count]);
             if (i != j)
             {
-                PlayingCard* firstCard = otherCards[i];
-                PlayingCard* secondCard = otherCards[j];
+                PlayingCard* firstCard = userPickedCards[i];
+                PlayingCard* secondCard = userPickedCards[j];
                 
                 
                 if(!([self.matchedCards containsObject:secondCard]))
@@ -107,81 +102,9 @@
             }
         }
     }
-    
+
     NSMutableArray* uniqueMatchArray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    
-    NSLog(@" %ld TOTAL IN MATCHED CARDS", [uniqueMatchArray count]);
-    
-    if ([self.matchedCards count] == 0) {
-        return 0;
-    }
-    
-    if ([otherCards count] == 3)
-    {
-        if ([uniqueMatchArray count] == 3) {
-            if (([uniqueMatchArray[0]rank] == [uniqueMatchArray[1]rank] && [uniqueMatchArray[1]rank] == [uniqueMatchArray[2]rank]))
-            {
-                NSLog(@"ranks match return score");
-                return 5;
-            }
-            if (([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit] && [uniqueMatchArray[1]suit] == [uniqueMatchArray[2]suit]))
-            {
-                NSLog(@"SUITS MATCH RETURN SCORE");
-                return 3;
-                
-            }
-            
-            else if(([uniqueMatchArray[0]rank] == [uniqueMatchArray[1]rank] ||[uniqueMatchArray[1]rank] == [uniqueMatchArray[2]rank] ||
-                [uniqueMatchArray[0]rank] ==
-                [uniqueMatchArray[2]rank]))
-            {
-                NSLog(@"WE HAVE 2 MATCHES RANK");
-                return 2;
-            
-            }
-            else if(([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit] ||[uniqueMatchArray[1]suit] == [uniqueMatchArray[2]suit] ||
-                [uniqueMatchArray[0]suit] ==
-                [uniqueMatchArray[2]suit]))
-            {
-                NSLog(@"WE HAVE 2 MATCHES SUIT");
-                return 1;
-                
-            }
-            
-        }
-            else if ([uniqueMatchArray count] == 2) {
-                if (([uniqueMatchArray[0]rank] == [uniqueMatchArray[1]rank]))
-                {
-                    NSLog(@" 2 ranks match return score");
-                    return 4;
-                }
-                
-                else if (([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit]))
-                {
-                    NSLog(@" 2 suits match return score");
-                    return 1;
-                }
-        
-            }
-    }
-    
-    if ([otherCards count] == 2) {
-        
-        if (([uniqueMatchArray[0]rank] == [uniqueMatchArray[1]rank]))
-        {
-            NSLog(@" 2 card game match rank");
-            return 4;
-        }
-        
-        else if (([uniqueMatchArray[0]suit] == [uniqueMatchArray[1]suit]))
-        {
-            NSLog(@"  2 card game match suit");
-            return 2;
-        }
-        
-    }
-    
-    return 1;
+    return uniqueMatchArray; 
 }
 
 @end

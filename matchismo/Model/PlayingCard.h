@@ -18,4 +18,5 @@
 + (NSUInteger) maxRank;
 //people will know how big our rank is
 
+
 @end
