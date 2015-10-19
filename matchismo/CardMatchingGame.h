@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Deck.h"
-#import "Card.h"9
+#import "Card.h"
 
 @protocol CardMatchingGameDelegate <NSObject>
-//-(void) didFindMatch:(NSMutableArray);
-
-
+-(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards;
 @end
 
 
@@ -29,6 +27,7 @@
 -(Card *)cardAtIndex: (NSUInteger) index;
 //UI knows which card was picked
 
+@property(nonatomic, weak) id<CardMatchingGameDelegate> delegate;
 @property(nonatomic, readonly) NSInteger score;
 //privately we want to set the score; not publicly set
 //score can be - = NSInteger

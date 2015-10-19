@@ -73,9 +73,8 @@ static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 2;
 static const int COST_TO_CHOOSE = 1;
 
-- (void)chooseCardAtIndex:(NSUInteger)index atSelectedSegmentIndex: (NSInteger) segmentIndex
+- (void)chooseCardAtIndex:(NSUInteger)index atSelectedSegmentIndex:(NSInteger)segmentIndex
 {
-   
     Card *card = [self cardAtIndex:index];
     //ViewController segmentedControl.enabled = YES;
 
@@ -84,42 +83,96 @@ static const int COST_TO_CHOOSE = 1;
     if (card.isChosen) {
         [self.chosenCards addObject:card];
         card.matched = YES;
-    }
-    
-    if (([self.chosenCards count] == 3) && segmentIndex == 1){
 
-        NSInteger matchScore = [card match:self.chosenCards];
-        NSLog(@"at match method");
-        
-        [self getScore:matchScore];
-        
     }
     
-    else if (([self.chosenCards count] == 2) && segmentIndex == 0){
-         int matchScore = [card match:self.chosenCards];
-        
-        [self getScore:matchScore];
-     
+    if (([self.chosenCards count] == 3 && segmentIndex == 1) || ([self.chosenCards count] == 2 && segmentIndex == 0))
+    {
+            NSMutableArray* uniqueArrayOfMatchCards = [card match:self.chosenCards];
+            NSInteger gotUserRawPoints = [self getMatchingCards: uniqueArrayOfMatchCards];
+            [self getScore:gotUserRawPoints];
     }
+    
+//    
+//    if ([self.delegate respondsToSelector:@selector(gotUniqueCards:)]) {
+//        [self.delegate gotUniqueCards:uniqueArrayOfMatchCards];
+//    }
+    
+}
+
+-(NSInteger ) getMatchingCards:(NSMutableArray *)uniqueArrayOfMatchingCards
+{
+    NSLog(@"ARRAY IN GAME %@", uniqueArrayOfMatchingCards);
+    if ([uniqueArrayOfMatchingCards count] == 0) {
+        return 0;
+    }
+    
+    if ([self.chosenCards count] == 3)
+    {
+        if ([uniqueArrayOfMatchingCards count] == 3) {
+            if (([uniqueArrayOfMatchingCards[0]rank] == [uniqueArrayOfMatchingCards[1]rank] && [uniqueArrayOfMatchingCards[1]rank] == [uniqueArrayOfMatchingCards[2]rank]))
+            {
+                return 5;
+            }
+            if (([uniqueArrayOfMatchingCards[0]suit] == [uniqueArrayOfMatchingCards[1]suit] && [uniqueArrayOfMatchingCards[1]suit] == [uniqueArrayOfMatchingCards[2]suit]))
+            {
+                return 3;
+            }
+            
+            else if(([uniqueArrayOfMatchingCards[0]rank] == [uniqueArrayOfMatchingCards[1]rank] ||[uniqueArrayOfMatchingCards[1]rank] == [uniqueArrayOfMatchingCards[2]rank] ||
+                     [uniqueArrayOfMatchingCards[0]rank] ==
+                     [uniqueArrayOfMatchingCards[2]rank]))
+            {
+                return 2;
+            }
+            else if(([uniqueArrayOfMatchingCards[0]suit] == [uniqueArrayOfMatchingCards[1]suit] ||[uniqueArrayOfMatchingCards[1]suit] == [uniqueArrayOfMatchingCards[2]suit] ||
+                     [uniqueArrayOfMatchingCards[0]suit] ==
+                     [uniqueArrayOfMatchingCards[2]suit]))
+            {
+                return 1;
+                
+            }
+        }else if ([uniqueArrayOfMatchingCards count] == 2) {
+            if (([uniqueArrayOfMatchingCards[0]rank] == [uniqueArrayOfMatchingCards[1]rank]))
+            {
+                return 4;
+            }else if (([uniqueArrayOfMatchingCards[0]suit] == [uniqueArrayOfMatchingCards[1]suit]))
+            {
+                return 1;
+            }
+            
+        }
+    }
+    
+    if ([self.chosenCards count] == 2) {
+        if (([uniqueArrayOfMatchingCards[0]rank] == [uniqueArrayOfMatchingCards[1]rank]))
+        {
+            return 4;
+        }
+        
+        else if (([uniqueArrayOfMatchingCards[0]suit] == [uniqueArrayOfMatchingCards[1]suit]))
+        {
+            return 2;
+        }
+    }
+    
+    return 1;
 }
 
 -(NSInteger) getScore:(NSInteger)matchScore
 {
-    NSLog(@"THIS IS THE match %ld", matchScore);
+    NSLog(@"match score in game, %ld", matchScore);
     if (matchScore) {
+        NSLog(@"match score in if game, %ld", matchScore);
         self.score += (matchScore * MATCH_BONUS);
         self.score -= ([self.chosenCards count] * COST_TO_CHOOSE);
-    }
-    else{
+    }else{
+        NSLog(@"match score in game else, %ld", matchScore);
         self.score -= ([self.chosenCards count] * COST_TO_CHOOSE);
         self.score -= MISMATCH_PENALTY;
     }
-    
     self.chosenCards = [NSMutableArray array];
     return self.score;
-
 }
-
-
 
 @end

@@ -48,6 +48,11 @@
 -(void)viewDidLoad
 {
     self.scoreTracker = 0;
+    self.game.delegate = self;
+    
+    //[self.lib startUpdatingCount];
+    
+    
 }
 
 - (IBAction)touchCardBack:(UIButton *)sender
@@ -129,11 +134,16 @@
     _scoreTracker = score;
     
     NSLog(@"bottom of function tracker %ld",self.scoreTracker);
-    
 }
 
 
--(NSString*) titleForCard: (Card *) card
+-(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards
+{
+    NSLog(@"%@ ARRAY", unqiueMatchedCards);
+}
+
+
+-(NSString *)titleForCard:(Card *)card
 {
     return card.isChosen ? @"" : card.contents;
 }
@@ -151,7 +161,6 @@
     {
         [self _createNewDeckOnUI];
     }
-    
 }
 
 

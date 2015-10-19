@@ -14,11 +14,12 @@
 @implementation Card
 
 
-- (int)match:(NSMutableArray *)otherCards
+- (NSMutableArray*) match:(NSMutableArray *)userPickedCards
 {
-    int score = 0;
+    NSMutableArray* uniqueArrayOfCards = [NSMutableArray new];
+
     
-    for (Card *card in otherCards)
+    for (Card *card in userPickedCards)
     {
         if ([card.contents isEqualToString:self.
              contents])
@@ -31,11 +32,11 @@
             // == compares POINTERS but not what the POINTERS point to.
             //setter and getters use . notation
             //setter = card.contents but position is on LEFT hand side, where getter is NOT LEFT hand side (same syntax)
-            score=1;
+            return uniqueArrayOfCards;
         }
     }
     
-    return score;
+    return uniqueArrayOfCards;
 }
 @end
 

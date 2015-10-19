@@ -138,9 +138,9 @@
 		DD38EEDD1B801DD4000A085F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DD8DEC231B8EAF4D0059ABEA /* PlayingCardDeck.h */,
 				DD7999951B99145D00B3D5C1 /* CardMatchingGame.h */,
 				DD7999961B99145D00B3D5C1 /* CardMatchingGame.m */,
-				DD8DEC231B8EAF4D0059ABEA /* PlayingCardDeck.h */,
 				DD8DEC241B8EAF4D0059ABEA /* PlayingCardDeck.m */,
 				DD38EED91B801D9B000A085F /* Card.h */,
 				DD38EEDA1B801D9B000A085F /* Card.m */,
