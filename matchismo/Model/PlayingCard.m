@@ -78,7 +78,6 @@
     {
         for (int j= 1; j<= ([userPickedCards count]-1); j++)
         {
-            NSLog(@"%ld in for loop other cards", [userPickedCards count]);
             if (i != j)
             {
                 PlayingCard* firstCard = userPickedCards[i];
@@ -105,7 +104,6 @@
     }
 
     NSMutableArray* uniqueMatchArray = [self.matchedCards valueForKeyPath:@"@distinctUnionOfObjects.self"];
-     NSLog(@"match score in game PLAYING CARD, %@", uniqueMatchArray);
     return uniqueMatchArray; 
 }
 

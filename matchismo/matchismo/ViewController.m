@@ -12,8 +12,7 @@
 #import "PlayingCard.h"
 
 
-@interface ViewController ()
-
+@interface ViewController () <CardMatchingGameDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *score_label;
 @property(nonatomic) Deck* deck;
@@ -24,7 +23,7 @@
 @property (nonatomic) NSInteger scoreTracker;
 
 
-
+//UICOLLECTIONVIEW
 
 
 @end
@@ -38,20 +37,19 @@
 
 -(CardMatchingGame *) game
 {
-    if (! _game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                           usingDeck:[self deck]];
+    if (! _game)
+    {
+       _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self deck]];
                  //self.deck is calling the method deck above
+        _game.delegate = self;
+    }
     return _game;
 }
 
 
 -(void)viewDidLoad
 {
-    self.scoreTracker = 0;
-    self.game.delegate = self;
-    
-    //[self.lib startUpdatingCount];
-    
+    self.scoreTracker = 0;    
     
 }
 
@@ -64,8 +62,6 @@
         [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
         [self updateUI];
         self.segmentedControl.enabled = NO;
-
-
     }
     
 }
@@ -79,7 +75,7 @@
         _scoreTracker = 0;
 
         self.segmentedControl.enabled = YES;
-        
+        self.cardDescription.text = @"Lets Play";
     }
 }
 
@@ -96,10 +92,8 @@
             [cardButtonInView setTitle:[self titleForCard: newCardAtIndex]forState:UIControlStateNormal];
             [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
-        
         }
 }
-
 
 -(void)updateUI
 {
@@ -114,34 +108,31 @@
         
             cardButton.enabled = !card.isMatched;
             self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-
         }
-    [self updateMatchingScoreLabel:self.game.score];
-}
-
--(void) updateMatchingScoreLabel:(NSInteger)score
-{
-    
-    NSLog(@"SCORE after  %ld", score);
-    NSLog(@"SCORE tracker before %ld", self.scoreTracker);
-    if(_scoreTracker < score){
-        NSLog(@"we have a match if tracker, %ld", self.scoreTracker);
-        NSLog(@"we have a match if score, %ld", score);
-    } else{
-        NSLog(@"we don't have a match %ld", self.scoreTracker);
-        NSLog(@"SCORE in else  %ld", score);
-    }
-    _scoreTracker = score;
-    
-    NSLog(@"bottom of function tracker %ld",self.scoreTracker);
 }
 
 
 -(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards
 {
-    NSLog(@"%@ ARRAY", unqiueMatchedCards);
+    if ([unqiueMatchedCards count])
+    {
+        NSMutableString* labelDescription = [[NSMutableString alloc]initWithString:@"Matched: "];
+        for (int i = 0; i < [unqiueMatchedCards count]; i+= 1)
+        {
+            PlayingCard* matchingCard = unqiueMatchedCards[i];
+            [labelDescription appendFormat:@"%ld%@ and ", matchingCard.rank, matchingCard.suit];
+        }
+        NSString* newLabelDescription = [NSString stringWithString:labelDescription];
+        NSRange replaceAnd= [labelDescription rangeOfString:@"and " options:NSBackwardsSearch];
+        if (replaceAnd.location != NSNotFound)
+        {
+            newLabelDescription = [newLabelDescription stringByReplacingCharactersInRange:replaceAnd withString:@""];
+        }
+        self.cardDescription.text = newLabelDescription;
+    }else{
+        self.cardDescription.text = @"Sorry, No Matches";
+    }
 }
-
 
 -(NSString *)titleForCard:(Card *)card
 {
@@ -156,7 +147,6 @@
 - (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender
 {
     NSInteger segmentIndex = [sender selectedSegmentIndex];
-    NSLog(@"THIS IS the index %ld", segmentIndex);
     if (segmentIndex == 0 || segmentIndex == 1)
     {
         [self _createNewDeckOnUI];
