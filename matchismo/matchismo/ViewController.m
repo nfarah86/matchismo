@@ -12,7 +12,7 @@
 #import "PlayingCard.h"
 
 
-@interface ViewController () <CardMatchingGameDelegate>
+@interface ViewController () <CardMatchingGameDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UILabel *score_label;
 @property(nonatomic) Deck* deck;
@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *cardDescription;
 @property (nonatomic) NSInteger scoreTracker;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property(nonatomic, strong) UIView *backgroundView;
 
 
 //UICOLLECTIONVIEW
@@ -39,7 +42,7 @@
 {
     if (! _game)
     {
-       _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self deck]];
+       _game = [[CardMatchingGame alloc] initWithCardCount:30 usingDeck:[self deck]];
                  //self.deck is calling the method deck above
         _game.delegate = self;
     }
@@ -49,8 +52,10 @@
 
 -(void)viewDidLoad
 {
-    self.scoreTracker = 0;    
-    
+    [super viewDidLoad];
+    self.scoreTracker = 0;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerClass: [UICollectionViewCell class]forCellWithReuseIdentifier:@"cardCell"];
 }
 
 - (IBAction)touchCardBack:(UIButton *)sender
@@ -153,5 +158,37 @@
     }
 }
 
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 30;
+}
+
+-(UICollectionViewCell* )collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //UICollectionViewCell* cell = [[UICollectionViewCell alloc]init];
+    UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    
+
+    cell.contentView.backgroundColor = [UIColor redColor];
+    //self.backgroundView.backgroundColor = [UIColor purpleColor];
+    return cell;
+    
+}
+
+-(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    //do something
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //do something
+}
+
+
+
+//(CGSize) - collectionSizeForItems.... // if I know the orientation , then I can position the cards to be nice layed out.
+
+//
 
 @end

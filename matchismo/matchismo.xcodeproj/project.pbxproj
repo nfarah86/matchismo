@@ -17,6 +17,7 @@
 		DD38EEDB1B801D9B000A085F /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEDA1B801D9B000A085F /* Card.m */; };
 		DD38EEE91B82ADB4000A085F /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEE81B82ADB4000A085F /* Deck.m */; };
 		DD38EEEC1B82B17A000A085F /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEEB1B82B17A000A085F /* PlayingCard.m */; };
+		DD3AEDD11BDAFFE1005BC5E7 /* cardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		DD7999971B99145D00B3D5C1 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7999961B99145D00B3D5C1 /* CardMatchingGame.m */; };
 		DD8DEC251B8EAF4D0059ABEA /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8DEC241B8EAF4D0059ABEA /* PlayingCardDeck.m */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,8 @@
 		DD38EEE81B82ADB4000A085F /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
 		DD38EEEA1B82B17A000A085F /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCard.h; path = Model/PlayingCard.h; sourceTree = "<group>"; };
 		DD38EEEB1B82B17A000A085F /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCard.m; path = Model/PlayingCard.m; sourceTree = "<group>"; };
+		DD3AEDCF1BDAFFE1005BC5E7 /* cardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cardCollectionViewCell.h; sourceTree = "<group>"; };
+		DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cardCollectionViewCell.m; sourceTree = "<group>"; };
 		DD7999951B99145D00B3D5C1 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGame.h; sourceTree = "<group>"; };
 		DD7999961B99145D00B3D5C1 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardMatchingGame.m; sourceTree = "<group>"; };
 		DD8DEC231B8EAF4D0059ABEA /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 				DD38EEB81B8006D0000A085F /* AppDelegate.m */,
 				DD38EEBA1B8006D0000A085F /* ViewController.h */,
 				DD38EEBB1B8006D0000A085F /* ViewController.m */,
+				DD3AEDCF1BDAFFE1005BC5E7 /* cardCollectionViewCell.h */,
+				DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */,
 				DD38EEBD1B8006D0000A085F /* Main.storyboard */,
 				DD38EEC01B8006D0000A085F /* Images.xcassets */,
 				DD38EEC21B8006D0000A085F /* LaunchScreen.xib */,
@@ -258,6 +263,7 @@
 				DD38EEB91B8006D0000A085F /* AppDelegate.m in Sources */,
 				DD7999971B99145D00B3D5C1 /* CardMatchingGame.m in Sources */,
 				DD8DEC251B8EAF4D0059ABEA /* PlayingCardDeck.m in Sources */,
+				DD3AEDD11BDAFFE1005BC5E7 /* cardCollectionViewCell.m in Sources */,
 				DD38EEB61B8006D0000A085F /* main.m in Sources */,
 				DD38EEDB1B801D9B000A085F /* Card.m in Sources */,
 			);
@@ -337,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -374,7 +380,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
