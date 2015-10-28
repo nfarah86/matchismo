@@ -52,32 +52,41 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IK3-Jj-mdS">
                                 <rect key="frame" x="59" y="64" width="480" height="382"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GWj-5L-6Jh">
-                                    <size key="itemSize" width="75" height="100"/>
+                                    <size key="itemSize" width="67" height="92"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cardCell" id="Xhx-Cy-wxI" customClass="cardCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="67" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="75" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="67" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0H-hY-uaa">
-                                                    <rect key="frame" x="-7" y="-3" width="89" height="107"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u0H-hY-uaa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="92"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68s-Fg-2di">
-                                                    <rect key="frame" x="0.0" y="33" width="75" height="38"/>
+                                                    <rect key="frame" x="-4" y="35" width="75" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.55941169580000005" blue="0.69769466989999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="u0H-hY-uaa" secondAttribute="bottom" constant="-8" id="3Lg-7d-KrZ"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="u0H-hY-uaa" secondAttribute="trailing" constant="-8" id="AhA-vi-5Hz"/>
+                                            <constraint firstItem="u0H-hY-uaa" firstAttribute="leading" secondItem="Xhx-Cy-wxI" secondAttribute="leadingMargin" constant="-8" id="fTw-eh-9fy"/>
+                                            <constraint firstItem="u0H-hY-uaa" firstAttribute="top" secondItem="Xhx-Cy-wxI" secondAttribute="topMargin" constant="-8" id="gnU-eT-UCx"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="cardLabel" destination="68s-Fg-2di" id="Fge-yl-uUM"/>
                                             <outlet property="imageView" destination="u0H-hY-uaa" id="K9Y-Si-P59"/>

@@ -10,6 +10,7 @@
 
 @implementation cardCollectionViewCell
 
+
  
 
 @end

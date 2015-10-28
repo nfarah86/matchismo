@@ -57,10 +57,10 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scoreTracker = 0;
+    
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    [self.collectionView registerClass: [UICollectionViewCell class]forCellWithReuseIdentifier:@"cardCell"];
+    self.scoreTracker = 0;
 }
 
 - (IBAction)touchCardBack:(UIButton *)sender
@@ -117,20 +117,19 @@
 
 -(void)updateUI:(PlayingCard*) playerSelectedCard
 {
-        NSInteger cardIndex = [self.cardsArray indexOfObject:playerSelectedCard];
-        Card *card = [self.game cardAtIndex:cardIndex];
-    
+//    NSInteger cardIndex = [self.cardsArray indexOfObject:playerSelectedCard];
+    //Card *card = [self.game cardAtIndex:cardIndex];
+    self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+}
 
-    
-//        [playerSelectedCard setTitle: [self titleForCard:card] forState: UIControlStateNormal];
-//    
-//        [playerSelectedCard setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
-//    
-    
-    
-        //cardButton.enabled = !card.isMatched;
-        self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-    
+-(NSString *)titleForCard:(Card *)card
+{
+    return card.isChosen ? card.contents : @"";
+}
+
+-(UIImage*) backgroundImageForCard: (Card *) card
+{
+    return [UIImage imageNamed:(card.isChosen) ? @"frontCard" : @"back_card"];
 }
 
 
@@ -156,15 +155,7 @@
     }
 }
 
--(NSString *)titleForCard:(Card *)card
-{
-    return card.isChosen ? @"" : card.contents;
-}
 
--(UIImage*) backgroundImageForCard: (Card *) card
-{
-    return [UIImage imageNamed:(card.isChosen) ? @"frontCard" : @"back_card"];
-}
 
 - (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender
 {
@@ -188,31 +179,20 @@
 {
     cardCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
     
-    cell.contentView.backgroundColor = [UIColor purpleColor];
-    
+    [[cell imageView]setImage:[UIImage imageNamed:@"back_card"]];
+
     PlayingCard* card  = self.cardsArray[indexPath.row];
     
     if (card.isChosen)
     {
-        [self updateUI:card];
-         NSLog(@"THIS WORKS card is chosen %ld", indexPath.row);
-        
+        NSString* cardTitle = [self titleForCard:card];
+        [[cell imageView]setImage:[self backgroundImageForCard:card]];
+        cell.cardLabel.text = cardTitle;
+        //[[cell imageView]setImage:[UIImage imageNamed:@"frontCard"]];
     }
-    
-    //cell.imageView.image =
-    //write to the label/ write imageView
-    //set the image
-    
-    
 
 
- // [cell.contentView.backgroundColor isEqual:(UIImage*) [UIImage imageNamed:@"frontCard"]];
-  
-    
-//   cell.backgroundView = [UIImage imageNamed:@"back_card"];
-    
     return cell;
-    
 }
 
 -(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -224,12 +204,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PlayingCard* card = [self.cardsArray objectAtIndex:indexPath.row];
+    //Card *card = [self.game cardAtIndex:indexPath.row];
     card.chosen = YES;
-    //[self updateUI:card];
-
     [collectionView reloadData];
-
-
 }
 //    collectionView.allowsMultipleSelection = YES;
 //    NSLog(@"%ld card index", indexPath.row);
