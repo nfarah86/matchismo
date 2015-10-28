@@ -12,6 +12,7 @@
 
 @interface cardCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *cardLabel;
 @property(nonatomic, strong) IBOutlet UIImageView* imageView;
 @property(nonatomic, strong) PlayingCard* card;
 @end

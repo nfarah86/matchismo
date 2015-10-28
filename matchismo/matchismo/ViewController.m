@@ -10,6 +10,8 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 #import "PlayingCard.h"
+#import "cardCollectionViewCell.h"
+
 
 
 @interface ViewController () <CardMatchingGameDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -24,9 +26,9 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(nonatomic, strong) UIView *backgroundView;
+@property(nonatomic, strong) NSMutableArray* cardsArray;
 
 
-//UICOLLECTIONVIEW
 
 
 @end
@@ -45,6 +47,8 @@
        _game = [[CardMatchingGame alloc] initWithCardCount:30 usingDeck:[self deck]];
                  //self.deck is calling the method deck above
         _game.delegate = self;
+        self.cardsArray = [NSMutableArray new];
+
     }
     return _game;
 }
@@ -55,6 +59,7 @@
     [super viewDidLoad];
     self.scoreTracker = 0;
     self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     [self.collectionView registerClass: [UICollectionViewCell class]forCellWithReuseIdentifier:@"cardCell"];
 }
 
@@ -65,7 +70,9 @@
         //when we touch a card that is sender (sender is the index)
 
         [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
-        [self updateUI];
+        //[self updateUI];
+        
+        
         self.segmentedControl.enabled = NO;
     }
     
@@ -86,34 +93,44 @@
 
 - (void)_createNewDeckOnUI
 {
-        CardMatchingGame * newCards = [self.game initWithCardCount:[self.cardButtons count] usingDeck:[self deck]];
-        for(NSUInteger i = 0; i < [self.cardButtons count]; i++)
+    CardMatchingGame * newCards = [self.game initWithCardCount:30 usingDeck:[self deck]];
+    
+        for(NSUInteger i = 0; i < 30; i++)
         {
-            PlayingCard* newCardAtIndex = (PlayingCard * )[newCards cardAtIndex:i];
+            PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
+            [self.cardsArray addObject:newCardAtIndex];
+            
+            
+            
+            
+            
             UIButton* cardButtonInView = self.cardButtons[i];
-            
             cardButtonInView.enabled = !newCardAtIndex.isMatched;
-            
             [cardButtonInView setTitle:[self titleForCard: newCardAtIndex]forState:UIControlStateNormal];
             [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
         }
+
+    [self.collectionView reloadData];
+
 }
 
--(void)updateUI
+-(void)updateUI:(PlayingCard*) playerSelectedCard
 {
+        NSInteger cardIndex = [self.cardsArray indexOfObject:playerSelectedCard];
+        Card *card = [self.game cardAtIndex:cardIndex];
     
-    for (UIButton* cardButton in self.cardButtons){
-            NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton]; //cardButton is a card object
-            Card *card = [self.game cardAtIndex:cardIndex];
-        
-            [cardButton setTitle: [self titleForCard:card] forState: UIControlStateNormal];
-        
-            [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
-        
-            cardButton.enabled = !card.isMatched;
-            self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-        }
+
+    
+//        [playerSelectedCard setTitle: [self titleForCard:card] forState: UIControlStateNormal];
+//    
+//        [playerSelectedCard setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
+//    
+    
+    
+        //cardButton.enabled = !card.isMatched;
+        self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+    
 }
 
 
@@ -158,37 +175,73 @@
     }
 }
 
+
+
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 30;
 }
 
+
 -(UICollectionViewCell* )collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //UICollectionViewCell* cell = [[UICollectionViewCell alloc]init];
-    UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    cardCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    
+    cell.contentView.backgroundColor = [UIColor purpleColor];
+    
+    PlayingCard* card  = self.cardsArray[indexPath.row];
+    
+    if (card.isChosen)
+    {
+        [self updateUI:card];
+         NSLog(@"THIS WORKS card is chosen %ld", indexPath.row);
+        
+    }
+    
+    //cell.imageView.image =
+    //write to the label/ write imageView
+    //set the image
+    
     
 
-    cell.contentView.backgroundColor = [UIColor redColor];
-    //self.backgroundView.backgroundColor = [UIColor purpleColor];
+
+ // [cell.contentView.backgroundColor isEqual:(UIImage*) [UIImage imageNamed:@"frontCard"]];
+  
+    
+//   cell.backgroundView = [UIImage imageNamed:@"back_card"];
+    
     return cell;
     
 }
 
 -(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    //do something
+    
+    //reload
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //do something
+    PlayingCard* card = [self.cardsArray objectAtIndex:indexPath.row];
+    card.chosen = YES;
+    //[self updateUI:card];
+
+    [collectionView reloadData];
+
+
 }
+//    collectionView.allowsMultipleSelection = YES;
+//    NSLog(@"%ld card index", indexPath.row);
 
 
+    
+    
+    
+    //setup of cell
+    // if pick 2 or 3 cards isSelected = No;
+    //reload
 
-//(CGSize) - collectionSizeForItems.... // if I know the orientation , then I can position the cards to be nice layed out.
 
-//
 
 @end

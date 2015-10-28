@@ -76,8 +76,6 @@ static const int COST_TO_CHOOSE = 1;
 - (void)chooseCardAtIndex:(NSUInteger)index atSelectedSegmentIndex:(NSInteger)segmentIndex
 {
     Card *card = [self cardAtIndex:index];
-    //ViewController segmentedControl.enabled = YES;
-
     card.chosen = YES;
     
     if (card.isChosen) {
