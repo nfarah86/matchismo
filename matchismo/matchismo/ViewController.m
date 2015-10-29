@@ -25,8 +25,8 @@
 @property (nonatomic) NSInteger scoreTracker;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property(nonatomic, strong) UIView *backgroundView;
 @property(nonatomic, strong) NSMutableArray* cardsArray;
+@property(nonatomic, getter=isSelected) BOOL selected;
 
 
 
@@ -99,27 +99,11 @@
         {
             PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
             [self.cardsArray addObject:newCardAtIndex];
-            
-            
-            
-            
-            
-            UIButton* cardButtonInView = self.cardButtons[i];
-            cardButtonInView.enabled = !newCardAtIndex.isMatched;
-            [cardButtonInView setTitle:[self titleForCard: newCardAtIndex]forState:UIControlStateNormal];
-            [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
         }
 
-    [self.collectionView reloadData];
+    //[self.collectionView reloadData];
 
-}
-
--(void)updateUI:(PlayingCard*) playerSelectedCard
-{
-//    NSInteger cardIndex = [self.cardsArray indexOfObject:playerSelectedCard];
-    //Card *card = [self.game cardAtIndex:cardIndex];
-    self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
 }
 
 -(NSString *)titleForCard:(Card *)card
@@ -150,7 +134,7 @@
             newLabelDescription = [newLabelDescription stringByReplacingCharactersInRange:replaceAnd withString:@""];
         }
         self.cardDescription.text = newLabelDescription;
-    }else{
+    } else{
         self.cardDescription.text = @"Sorry, No Matches";
     }
 }
@@ -166,9 +150,6 @@
     }
 }
 
-
-
-
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 30;
@@ -179,45 +160,29 @@
 {
     cardCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
     
-    [[cell imageView]setImage:[UIImage imageNamed:@"back_card"]];
-
-    PlayingCard* card  = self.cardsArray[indexPath.row];
-    
-    if (card.isChosen)
-    {
-        NSString* cardTitle = [self titleForCard:card];
-        [[cell imageView]setImage:[self backgroundImageForCard:card]];
-        cell.cardLabel.text = cardTitle;
-        //[[cell imageView]setImage:[UIImage imageNamed:@"frontCard"]];
-    }
-
+    PlayingCard *card = self.cardsArray[indexPath.row];
+    NSString* cardTitle = [self titleForCard:card];
+    cell.cardLabel.text =cardTitle;
+    cell.imageView.image = [self backgroundImageForCard:card];
 
     return cell;
 }
 
 -(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    
     //reload
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PlayingCard* card = [self.cardsArray objectAtIndex:indexPath.row];
-    //Card *card = [self.game cardAtIndex:indexPath.row];
-    card.chosen = YES;
+    
+  //  PlayingCard *card = self.cardsArray[indexPath.row];
+    [self.game chooseCardAtIndex:indexPath.row atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
+
+
+
     [collectionView reloadData];
 }
-//    collectionView.allowsMultipleSelection = YES;
-//    NSLog(@"%ld card index", indexPath.row);
-
-
-    
-    
-    
-    //setup of cell
-    // if pick 2 or 3 cards isSelected = No;
-    //reload
 
 
 
