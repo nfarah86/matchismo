@@ -10,9 +10,11 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 #import "PlayingCard.h"
+#import "cardCollectionViewCell.h"
 
 
-@interface ViewController () <CardMatchingGameDelegate>
+
+@interface ViewController () <CardMatchingGameDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UILabel *score_label;
 @property(nonatomic) Deck* deck;
@@ -22,8 +24,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *cardDescription;
 @property (nonatomic) NSInteger scoreTracker;
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property(nonatomic, strong) NSMutableArray* cardsArray;
+@property(nonatomic, getter=isSelected) BOOL selected;
 
-//UICOLLECTIONVIEW
+
 
 
 @end
@@ -39,9 +44,11 @@
 {
     if (! _game)
     {
-       _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self deck]];
+       _game = [[CardMatchingGame alloc] initWithCardCount:30 usingDeck:[self deck]];
                  //self.deck is calling the method deck above
         _game.delegate = self;
+        self.cardsArray = [NSMutableArray new];
+
     }
     return _game;
 }
@@ -49,23 +56,13 @@
 
 -(void)viewDidLoad
 {
-    self.scoreTracker = 0;    
+    [super viewDidLoad];
     
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    self.scoreTracker = 0;
+    [self _createNewDeckOnUI];
 }
-
-- (IBAction)touchCardBack:(UIButton *)sender
-{
-    {
-        NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
-        //when we touch a card that is sender (sender is the index)
-
-        [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
-        [self updateUI];
-        self.segmentedControl.enabled = NO;
-    }
-    
-}
-
 
 - (IBAction)clickOnDeal:(UIButton *)sender
 {
@@ -81,39 +78,39 @@
 
 - (void)_createNewDeckOnUI
 {
-        CardMatchingGame * newCards = [self.game initWithCardCount:[self.cardButtons count] usingDeck:[self deck]];
-        for(NSUInteger i = 0; i < [self.cardButtons count]; i++)
+    CardMatchingGame * newCards = [self.game initWithCardCount:30 usingDeck:[self deck]];
+    
+        self.cardsArray = [NSMutableArray new];
+
+    
+        for(NSUInteger i = 0; i < 30; i++)
         {
-            PlayingCard* newCardAtIndex = (PlayingCard * )[newCards cardAtIndex:i];
-            UIButton* cardButtonInView = self.cardButtons[i];
-            
-            cardButtonInView.enabled = !newCardAtIndex.isMatched;
-            
-            [cardButtonInView setTitle:[self titleForCard: newCardAtIndex]forState:UIControlStateNormal];
-            [cardButtonInView setBackgroundImage:[self backgroundImageForCard:newCardAtIndex] forState:UIControlStateNormal];
+            PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
+            [self.cardsArray addObject:newCardAtIndex];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
         }
+
+    [self.collectionView reloadData];
+
 }
 
--(void)updateUI
+-(NSString *)titleForCard:(Card *)card
 {
-    
-    for (UIButton* cardButton in self.cardButtons){
-            NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton]; //cardButton is a card object
-            Card *card = [self.game cardAtIndex:cardIndex];
-        
-            [cardButton setTitle: [self titleForCard:card] forState: UIControlStateNormal];
-        
-            [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
-        
-            cardButton.enabled = !card.isMatched;
-            self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-        }
+    return card.isChosen ? card.contents : @"";
 }
 
+-(UIImage*) backgroundImageForCard: (Card *) card
+{
+    if (card.isChosen) {
+        return nil;
+    }else{
+    return [UIImage imageNamed: @"back_card"];
+    }
+}
 
 -(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards
 {
+    // delegate method
     if ([unqiueMatchedCards count])
     {
         NSMutableString* labelDescription = [[NSMutableString alloc]initWithString:@"Matched: "];
@@ -129,19 +126,9 @@
             newLabelDescription = [newLabelDescription stringByReplacingCharactersInRange:replaceAnd withString:@""];
         }
         self.cardDescription.text = newLabelDescription;
-    }else{
+    } else{
         self.cardDescription.text = @"Sorry, No Matches";
     }
-}
-
--(NSString *)titleForCard:(Card *)card
-{
-    return card.isChosen ? @"" : card.contents;
-}
-
--(UIImage*) backgroundImageForCard: (Card *) card
-{
-    return [UIImage imageNamed:(card.isChosen) ? @"frontCard" : @"back_card"];
 }
 
 - (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender
@@ -152,6 +139,41 @@
         [self _createNewDeckOnUI];
     }
 }
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 30;
+}
+
+
+-(UICollectionViewCell* )collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    cardCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    
+    PlayingCard *card = self.cardsArray[indexPath.row];
+    NSString* cardTitle = [self titleForCard:card];
+    cell.cardLabel.text =cardTitle;
+    cell.imageView.image = [self backgroundImageForCard:card];
+    
+     return cell;
+}
+
+-(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    //reload
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [self.game chooseCardAtIndex:indexPath.row atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
+    
+    self.segmentedControl.enabled = NO;
+    self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
+
+    [collectionView reloadData];
+}
+
 
 
 @end
