@@ -61,23 +61,8 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.scoreTracker = 0;
+    [self _createNewDeckOnUI];
 }
-
-//- (IBAction)touchCardBack:(UIButton *)sender
-//{
-//    {
-//        //NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
-//        //when we touch a card that is sender (sender is the index)
-//
-////        [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
-//        //[self updateUI];
-//        
-//        
-//       // self.segmentedControl.enabled = NO;
-//    }
-//    
-//}
-
 
 - (IBAction)clickOnDeal:(UIButton *)sender
 {
@@ -116,9 +101,12 @@
 
 -(UIImage*) backgroundImageForCard: (Card *) card
 {
-    return [UIImage imageNamed:(card.isChosen) ? @"" : @"back_card"];
+    if (card.isChosen) {
+        return nil;
+    }else{
+    return [UIImage imageNamed: @"back_card"];
+    }
 }
-
 
 -(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards
 {
