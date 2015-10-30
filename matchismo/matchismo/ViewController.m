@@ -116,7 +116,7 @@
 
 -(UIImage*) backgroundImageForCard: (Card *) card
 {
-    return [UIImage imageNamed:(card.isChosen) ? @"frontCard" : @"back_card"];
+    return [UIImage imageNamed:(card.isChosen) ? @"" : @"back_card"];
 }
 
 
@@ -181,6 +181,7 @@
     [self.game chooseCardAtIndex:indexPath.row atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
     
     self.segmentedControl.enabled = NO;
+    self.score_label.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
 
     [collectionView reloadData];
 }
