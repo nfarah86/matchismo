@@ -17,12 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Score:  0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQ0-c3-paP">
-                                <rect key="frame" x="72" y="479" width="168" height="37"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WoT-8M-JuG">
                                 <rect key="frame" x="177" y="28" width="245" height="29"/>
                                 <segments>
@@ -34,14 +28,14 @@
                                     <action selector="chooseMatchCardGame:" destination="vXZ-lx-hvc" eventType="valueChanged" id="n8P-Ny-nhB"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lets Play!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-jd-Ic2">
-                                <rect key="frame" x="80" y="531" width="226" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lets Play!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-jd-Ic2">
+                                <rect key="frame" x="117" y="522" width="378" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-74-zfq">
-                                <rect key="frame" x="509" y="486" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-74-zfq">
+                                <rect key="frame" x="493" y="486" width="46" height="30"/>
                                 <state key="normal" title="Deal">
                                     <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,14 +88,29 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score:  0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQ0-c3-paP">
+                                <rect key="frame" x="59" y="486" width="168" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16470588743686676" green="0.59607845544815063" blue="0.14117647707462311" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
+                            <constraint firstItem="gtj-jd-Ic2" firstAttribute="top" secondItem="IK3-Jj-mdS" secondAttribute="bottom" constant="76" id="3G1-Rw-OLB"/>
                             <constraint firstItem="IK3-Jj-mdS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="91g-Yq-rLD"/>
                             <constraint firstItem="WoT-8M-JuG" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Cfh-Lb-Kgg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IK3-Jj-mdS" secondAttribute="trailing" constant="40" id="EY8-id-dqq"/>
-                            <constraint firstItem="KQ0-c3-paP" firstAttribute="top" secondItem="IK3-Jj-mdS" secondAttribute="bottom" constant="23" id="Y7c-Rv-Pjp"/>
+                            <constraint firstItem="gtj-jd-Ic2" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="97" id="Fe4-wv-lvq"/>
+                            <constraint firstItem="KQ0-c3-paP" firstAttribute="top" secondItem="IK3-Jj-mdS" secondAttribute="bottom" constant="40" id="QfC-gd-cCF"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="KQ0-c3-paP" secondAttribute="bottom" constant="77" id="RUU-mO-sG6"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tyO-74-zfq" secondAttribute="bottom" constant="84" id="UmO-Oy-Ifx"/>
                             <constraint firstItem="IK3-Jj-mdS" firstAttribute="top" secondItem="WoT-8M-JuG" secondAttribute="bottom" constant="18" id="YKG-T0-bg7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tyO-74-zfq" secondAttribute="trailing" constant="41" id="ejC-4j-kMI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gtj-jd-Ic2" secondAttribute="trailing" constant="85" id="erS-CU-WXB"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="gtj-jd-Ic2" secondAttribute="bottom" constant="34" id="hCg-Pq-pMx"/>
+                            <constraint firstItem="tyO-74-zfq" firstAttribute="top" secondItem="IK3-Jj-mdS" secondAttribute="bottom" constant="40" id="jtP-tH-9Ze"/>
+                            <constraint firstItem="KQ0-c3-paP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="39" id="ukE-zb-4Pl"/>
                         </constraints>
                     </view>
                     <connections>

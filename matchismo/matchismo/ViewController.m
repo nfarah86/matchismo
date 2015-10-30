@@ -166,10 +166,8 @@
     NSString* cardTitle = [self titleForCard:card];
     cell.cardLabel.text =cardTitle;
     cell.imageView.image = [self backgroundImageForCard:card];
-
-   
-   // [self gotUniqueCards:<#(NSMutableArray *)#>]
-    return cell;
+    
+     return cell;
 }
 
 -(void)collectionView:(UICollectionView* )collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
