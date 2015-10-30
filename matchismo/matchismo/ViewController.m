@@ -63,20 +63,20 @@
     self.scoreTracker = 0;
 }
 
-- (IBAction)touchCardBack:(UIButton *)sender
-{
-    {
-        NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
-        //when we touch a card that is sender (sender is the index)
-
-        [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
-        //[self updateUI];
-        
-        
-        self.segmentedControl.enabled = NO;
-    }
-    
-}
+//- (IBAction)touchCardBack:(UIButton *)sender
+//{
+//    {
+//        //NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
+//        //when we touch a card that is sender (sender is the index)
+//
+////        [self.game chooseCardAtIndex:cardIndex atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
+//        //[self updateUI];
+//        
+//        
+//       // self.segmentedControl.enabled = NO;
+//    }
+//    
+//}
 
 
 - (IBAction)clickOnDeal:(UIButton *)sender
@@ -95,6 +95,9 @@
 {
     CardMatchingGame * newCards = [self.game initWithCardCount:30 usingDeck:[self deck]];
     
+        self.cardsArray = [NSMutableArray new];
+
+    
         for(NSUInteger i = 0; i < 30; i++)
         {
             PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
@@ -102,7 +105,7 @@
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
         }
 
-    //[self.collectionView reloadData];
+    [self.collectionView reloadData];
 
 }
 
@@ -119,6 +122,7 @@
 
 -(void)gotUniqueCards:(NSMutableArray *) unqiueMatchedCards
 {
+    // delegate method
     if ([unqiueMatchedCards count])
     {
         NSMutableString* labelDescription = [[NSMutableString alloc]initWithString:@"Matched: "];
@@ -138,8 +142,6 @@
         self.cardDescription.text = @"Sorry, No Matches";
     }
 }
-
-
 
 - (IBAction)chooseMatchCardGame:(UISegmentedControl *)sender
 {
@@ -165,6 +167,8 @@
     cell.cardLabel.text =cardTitle;
     cell.imageView.image = [self backgroundImageForCard:card];
 
+   
+   // [self gotUniqueCards:<#(NSMutableArray *)#>]
     return cell;
 }
 
@@ -176,10 +180,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-  //  PlayingCard *card = self.cardsArray[indexPath.row];
     [self.game chooseCardAtIndex:indexPath.row atSelectedSegmentIndex:[self.segmentedControl selectedSegmentIndex]];
-
-
+    
+    self.segmentedControl.enabled = NO;
 
     [collectionView reloadData];
 }
