@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WoT-8M-JuG">
-                                <rect key="frame" x="177" y="28" width="245" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WoT-8M-JuG">
+                                <rect key="frame" x="200" y="28" width="199" height="29"/>
                                 <segments>
                                     <segment title="2-Card Match"/>
                                     <segment title="3-Card Match"/>
@@ -34,8 +34,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-74-zfq">
-                                <rect key="frame" x="493" y="486" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-74-zfq">
+                                <rect key="frame" x="508" y="486" width="31" height="30"/>
                                 <state key="normal" title="Deal">
                                     <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -44,8 +44,8 @@
                                     <action selector="clickOnDeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dbg-H0-k9Z"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IK3-Jj-mdS">
-                                <rect key="frame" x="59" y="64" width="480" height="382"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IK3-Jj-mdS">
+                                <rect key="frame" x="60" y="74" width="480" height="372"/>
                                 <color key="backgroundColor" red="0.1647058874" green="0.59607845540000004" blue="0.1411764771" alpha="1" colorSpace="deviceRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GWj-5L-6Jh">
                                     <size key="itemSize" width="67" height="92"/>
@@ -89,8 +89,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score:  0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQ0-c3-paP">
-                                <rect key="frame" x="59" y="486" width="168" height="37"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:  0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQ0-c3-paP">
+                                <rect key="frame" x="59" y="486" width="68.5" height="37"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -107,10 +107,12 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="KQ0-c3-paP" secondAttribute="bottom" constant="77" id="RUU-mO-sG6"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tyO-74-zfq" secondAttribute="bottom" constant="84" id="UmO-Oy-Ifx"/>
                             <constraint firstItem="IK3-Jj-mdS" firstAttribute="top" secondItem="WoT-8M-JuG" secondAttribute="bottom" constant="18" id="YKG-T0-bg7"/>
+                            <constraint firstItem="KQ0-c3-paP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="39" id="cYF-7g-Tgl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tyO-74-zfq" secondAttribute="trailing" constant="41" id="ejC-4j-kMI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gtj-jd-Ic2" secondAttribute="trailing" constant="85" id="erS-CU-WXB"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="gtj-jd-Ic2" secondAttribute="bottom" constant="34" id="hCg-Pq-pMx"/>
                             <constraint firstItem="tyO-74-zfq" firstAttribute="top" secondItem="IK3-Jj-mdS" secondAttribute="bottom" constant="40" id="jtP-tH-9Ze"/>
+                            <constraint firstItem="WoT-8M-JuG" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="nAc-3h-idW"/>
                             <constraint firstItem="KQ0-c3-paP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="39" id="ukE-zb-4Pl"/>
                         </constraints>
                     </view>
