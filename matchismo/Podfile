@@ -1,2 +1,2 @@
-platform :osx, '10.9'
+platform :ios, '7.0'
 pod 'Bean-iOS-OSX-SDK'
