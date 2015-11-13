@@ -18,8 +18,9 @@
 		DD38EEDB1B801D9B000A085F /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEDA1B801D9B000A085F /* Card.m */; };
 		DD38EEE91B82ADB4000A085F /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEE81B82ADB4000A085F /* Deck.m */; };
 		DD38EEEC1B82B17A000A085F /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DD38EEEB1B82B17A000A085F /* PlayingCard.m */; };
-		DD3AEDD11BDAFFE1005BC5E7 /* cardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		DD3AEDD11BDAFFE1005BC5E7 /* cardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */; };
 		DD7999971B99145D00B3D5C1 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7999961B99145D00B3D5C1 /* CardMatchingGame.m */; };
+		DD8454AC1BF3EFEC005808ED /* BeanController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8454AB1BF3EFEC005808ED /* BeanController.m */; };
 		DD8DEC251B8EAF4D0059ABEA /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8DEC241B8EAF4D0059ABEA /* PlayingCardDeck.m */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,8 @@
 		DD3AEDD01BDAFFE1005BC5E7 /* cardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cardCollectionViewCell.m; sourceTree = "<group>"; };
 		DD7999951B99145D00B3D5C1 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGame.h; sourceTree = "<group>"; };
 		DD7999961B99145D00B3D5C1 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardMatchingGame.m; sourceTree = "<group>"; };
+		DD8454AA1BF3EFEC005808ED /* BeanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeanController.h; path = Controller/BeanController.h; sourceTree = "<group>"; };
+		DD8454AB1BF3EFEC005808ED /* BeanController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeanController.m; path = Controller/BeanController.m; sourceTree = "<group>"; };
 		DD8DEC231B8EAF4D0059ABEA /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
 		DD8DEC241B8EAF4D0059ABEA /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
 		ED494BA969239958BFA38CC6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +97,7 @@
 		DD38EEA71B8006D0000A085F = {
 			isa = PBXGroup;
 			children = (
+				DD8454A91BF3EFBF005808ED /* Controller */,
 				DD38EEDD1B801DD4000A085F /* Model */,
 				DD38EEB21B8006D0000A085F /* matchismo */,
 				DD38EECC1B8006D0000A085F /* matchismoTests */,
@@ -170,6 +174,15 @@
 				DD38EEE81B82ADB4000A085F /* Deck.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		DD8454A91BF3EFBF005808ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DD8454AA1BF3EFEC005808ED /* BeanController.h */,
+				DD8454AB1BF3EFEC005808ED /* BeanController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		E680A92EEC1BABC4A074A33D /* Pods */ = {
@@ -340,6 +353,7 @@
 				DD8DEC251B8EAF4D0059ABEA /* PlayingCardDeck.m in Sources */,
 				DD3AEDD11BDAFFE1005BC5E7 /* cardCollectionViewCell.m in Sources */,
 				DD38EEB61B8006D0000A085F /* main.m in Sources */,
+				DD8454AC1BF3EFEC005808ED /* BeanController.m in Sources */,
 				DD38EEDB1B801D9B000A085F /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,7 +432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -455,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

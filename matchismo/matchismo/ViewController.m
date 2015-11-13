@@ -11,6 +11,8 @@
 #import "CardMatchingGame.h"
 #import "PlayingCard.h"
 #import "cardCollectionViewCell.h"
+#import "BeanController.h"
+
 
 
 
@@ -28,10 +30,9 @@
 @property(nonatomic, strong) NSMutableArray* cardsArray;
 @property(nonatomic, getter=isSelected) BOOL selected;
 
-
-
-
 @end
+
+
 
 @implementation ViewController
 
@@ -62,6 +63,7 @@
     self.collectionView.delegate = self;
     self.scoreTracker = 0;
     [self _createNewDeckOnUI];
+    [BeanController sharedBeanController];
 }
 
 - (IBAction)clickOnDeal:(UIButton *)sender
@@ -140,15 +142,21 @@
     }
 }
 
+
+
+#pragma UICollectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return 30;
 }
 
-
 -(UICollectionViewCell* )collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     cardCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    
+    if (cell == nil) {
+        cell = [[cardCollectionViewCell alloc] init];
+    }
     
     PlayingCard *card = self.cardsArray[indexPath.row];
     NSString* cardTitle = [self titleForCard:card];
