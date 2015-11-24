@@ -8,6 +8,7 @@
 
 #import "BeanViewController.h"
 #import "PTDBeanManager.h"
+#import "ViewController.h"
 
 
 @interface BeanViewController ()<PTDBeanManagerDelegate, PTDBeanDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -23,11 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.beans = [[NSMutableArray alloc] init];
+    self.beanManager = [[PTDBeanManager alloc]initWithDelegate:self];
+
+
+
+   // [BeanViewController sharedBeanViewController];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,18 +37,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-+(BeanViewController*) sharedBeanViewController
-{
-    static BeanViewController *sharedBeanViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{ sharedBeanViewController = [[BeanViewController alloc] init];
-        sharedBeanViewController.beanManager = [[PTDBeanManager alloc]initWithDelegate:sharedBeanViewController];});
-    sharedBeanViewController.beans = [[NSMutableArray alloc] init];
-    
-    NSLog(@"CLASS INSTANTIATED");
-    return sharedBeanViewController;
-}
+//
+//+(BeanViewController*) sharedBeanViewController
+//{
+//    static BeanViewController *sharedBeanViewController = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{ sharedBeanViewController = [[BeanViewController alloc] init];
+//    
+//    NSLog(@"CLASS INSTANTIATED");
+//    return sharedBeanViewController;
+//}
 
 
 
@@ -56,9 +56,9 @@
 - (void)beanManagerDidUpdateState:(PTDBeanManager *)manager
 {
     // if manager is powered on, start scanning
-    
     // checks the bt chip on ie phone ... if it is, poweredon-->
     // start scanning..
+    
     
     if(self.beanManager.state == BeanManagerState_PoweredOn){
         [self.beanManager startScanningForBeans_error:nil];
@@ -76,11 +76,14 @@
         NSLog(@"THIS IS THE ERROR: %@", error);
         return;
     }
-    // if bean is there add to array
     
     if (![self.beans containsObject:bean]) {
         [self.beans addObject:bean];
+        NSLog(@" %ld BEAN LENGTH", [self.beans count]);
     }
+    
+        [self.tableView reloadData];
+
     
 }
 
@@ -95,10 +98,17 @@
     // if bean is connected
     NSLog(@"did connect bean");
     self.bean = bean;
-    [bean setLedColor:[UIColor blueColor]];
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(disconnectBean) userInfo:nil repeats:NO];
+    [self performSegueWithIdentifier:@"showGameDetail" sender:self];
+
+   // [bean setLedColor:[UIColor blueColor]];
+    //[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(disconnectBean) userInfo:nil repeats:NO];
     
-    //call own dele. mathod bean controller .. view controller should know that the bean is connected.
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ViewController* viewController = segue.destinationViewController;
+    viewController.bean = self.bean; 
 }
 
 //finish disconnecting, this method is automaticlaly called.
@@ -121,6 +131,8 @@
 #pragma UITableViewDataSource
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"%ld BEANNS lengtttth", [self.beans count]);
+    //return 1;
     return [self.beans count];
 }
 
@@ -128,15 +140,18 @@
 {
     static NSString* beanIdentifier = @"beanIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:beanIdentifier];
+    NSLog(@"%@ cell", cell);
     
     if(!cell)
     {
         UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:beanIdentifier];
     }
     
-    PTDBean* bean = self.beans[indexPath.row];
-    cell.detailTextLabel.text = bean.name;
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:25];
+    PTDBean* beanAtIndex = [self.beans objectAtIndex:indexPath.row];
+    //cell.textLabel.text = @"nadine";
+    cell.textLabel.text = beanAtIndex.name;
+    NSLog(@"%@ this is bean", beanAtIndex.name);
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:15];
     
     return cell;
 }
@@ -147,7 +162,7 @@
     //connect to bean
     
     [self.beanManager connectToBean:userSelectedBean error:nil];
-    [self performSegueWithIdentifier:@"showGameDetail" sender:self];
+    
     
         
     //create a delegate to check if Bean has been shaken

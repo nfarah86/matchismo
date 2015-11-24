@@ -12,6 +12,7 @@
 
 
 
+
 @interface BeanViewController : UITableViewController
 
 +(BeanViewController*) sharedBeanViewController;
