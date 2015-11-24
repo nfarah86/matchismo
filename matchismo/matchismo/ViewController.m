@@ -11,7 +11,7 @@
 #import "CardMatchingGame.h"
 #import "PlayingCard.h"
 #import "cardCollectionViewCell.h"
-#import "BeanController.h"
+#import "BeanViewController.h"
 
 
 
@@ -63,7 +63,8 @@
     self.collectionView.delegate = self;
     self.scoreTracker = 0;
     [self _createNewDeckOnUI];
-    [BeanController sharedBeanController];
+    NSLog(@"viewdid load");
+    [BeanViewController sharedBeanViewController];
 }
 
 - (IBAction)clickOnDeal:(UIButton *)sender
