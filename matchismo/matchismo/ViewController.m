@@ -64,7 +64,6 @@
     self.scoreTracker = 0;
     [self _createNewDeckOnUI];
     NSLog(@"viewdid load");
-    [BeanViewController sharedBeanViewController];
 }
 
 - (IBAction)clickOnDeal:(UIButton *)sender
