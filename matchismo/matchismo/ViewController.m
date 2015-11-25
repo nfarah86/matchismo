@@ -73,16 +73,26 @@
     NSLog(@"%@ BEAN passed in VIEW CONTROLLER", self.bean.name);
 }
 
-- (IBAction)clickOnDeal:(UIButton *)sender
-{
-    if(sender)
-    {
-        [self _createNewDeckOnUI];
-        _scoreTracker = 0;
+//- (IBAction)clickOnDeal:(UIButton *)sender
+//{
+//    if(sender)
+//    {
+//        [self _createNewDeckOnUI];
+//        _scoreTracker = 0;
+//
+//        self.segmentedControl.enabled = YES;
+//        self.cardDescription.text = @"Lets Play";
+//    }
+//}
 
-        self.segmentedControl.enabled = YES;
-        self.cardDescription.text = @"Lets Play";
-    }
+-(void)clickOnDeal
+{
+    [self _createNewDeckOnUI];
+    _scoreTracker = 0;
+    
+    self.segmentedControl.enabled = YES;
+    self.cardDescription.text = @"Lets Play";
+
 }
 
 - (void)_createNewDeckOnUI
@@ -191,18 +201,10 @@
 
 - (void)bean:(PTDBean *)bean serialDataReceived:(NSData *)data
 {
-    NSLog(@"%@ data from bean", data);
-    NSLog(@"SERIAL DAATA");
+    if (data) {
+        [self clickOnDeal];
+    }
 }
 
-//Example:
-// Set this class as the Bean's delegate to receive messages
-// ask the Bean for the current ambient temperature
-
-// This is called when the Bean responds
--(void)bean:(PTDBean *)bean didUpdateTemperature:(NSNumber *)degrees_celsius {
-    NSString *msg = [NSString stringWithFormat:@"received did update temp reading:%@", degrees_celsius];
-    NSLog(@"%@",msg);
-}
 
 @end
