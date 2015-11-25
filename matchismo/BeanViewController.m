@@ -11,7 +11,7 @@
 #import "ViewController.h"
 
 
-@interface BeanViewController ()<PTDBeanManagerDelegate, PTDBeanDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface BeanViewController ()<PTDBeanManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property(nonatomic, strong) PTDBeanManager* beanManager;
 @property(nonatomic, strong) PTDBean* bean;
 @property(nonatomic, strong) NSMutableArray* beans;
@@ -27,28 +27,12 @@
     self.beans = [[NSMutableArray alloc] init];
     self.beanManager = [[PTDBeanManager alloc]initWithDelegate:self];
 
-
-
-   // [BeanViewController sharedBeanViewController];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//
-//+(BeanViewController*) sharedBeanViewController
-//{
-//    static BeanViewController *sharedBeanViewController = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{ sharedBeanViewController = [[BeanViewController alloc] init];
-//    
-//    NSLog(@"CLASS INSTANTIATED");
-//    return sharedBeanViewController;
-//}
-
-
 
 #pragma mark - BeanManager Delegate
 
@@ -87,7 +71,6 @@
     
 }
 
-
 //once bean connects, didConnectBean automatically called. async.
 -(void)beanManager:(PTDBeanManager *)beanManager didConnectBean:(PTDBean *)bean error:(NSError *)error
 {
@@ -104,6 +87,7 @@
     //[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(disconnectBean) userInfo:nil repeats:NO];
     
 }
+
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

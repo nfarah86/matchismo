@@ -10,7 +10,7 @@
 #import "PTDBeanManager.h"
 
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<PTDBeanDelegate>
 
 @property(nonatomic, strong) PTDBean* bean; 
 

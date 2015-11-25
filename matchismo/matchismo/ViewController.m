@@ -30,6 +30,7 @@
 @property(nonatomic, strong) NSMutableArray* cardsArray;
 @property(nonatomic, getter=isSelected) BOOL selected;
 
+
 @end
 
 
@@ -63,7 +64,13 @@
     self.collectionView.delegate = self;
     self.scoreTracker = 0;
     [self _createNewDeckOnUI];
-    NSLog(@"viewdid load");
+    
+     
+    self.bean.delegate = self;
+    
+
+    
+    NSLog(@"%@ BEAN passed in VIEW CONTROLLER", self.bean.name);
 }
 
 - (IBAction)clickOnDeal:(UIButton *)sender
@@ -83,13 +90,12 @@
     CardMatchingGame * newCards = [self.game initWithCardCount:30 usingDeck:[self deck]];
     
         self.cardsArray = [NSMutableArray new];
-
-    
         for(NSUInteger i = 0; i < 30; i++)
         {
             PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
             [self.cardsArray addObject:newCardAtIndex];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
+
         }
 
     [self.collectionView reloadData];
@@ -183,5 +189,20 @@
 }
 
 
+- (void)bean:(PTDBean *)bean serialDataReceived:(NSData *)data
+{
+    NSLog(@"%@ data from bean", data);
+    NSLog(@"SERIAL DAATA");
+}
+
+//Example:
+// Set this class as the Bean's delegate to receive messages
+// ask the Bean for the current ambient temperature
+
+// This is called when the Bean responds
+-(void)bean:(PTDBean *)bean didUpdateTemperature:(NSNumber *)degrees_celsius {
+    NSString *msg = [NSString stringWithFormat:@"received did update temp reading:%@", degrees_celsius];
+    NSLog(@"%@",msg);
+}
 
 @end
