@@ -30,6 +30,7 @@
 @property(nonatomic, strong) NSMutableArray* cardsArray;
 @property(nonatomic, getter=isSelected) BOOL selected;
 
+
 @end
 
 
@@ -63,19 +64,35 @@
     self.collectionView.delegate = self;
     self.scoreTracker = 0;
     [self _createNewDeckOnUI];
-    NSLog(@"viewdid load");
+    
+     
+    self.bean.delegate = self;
+    
+
+    
+    NSLog(@"%@ BEAN passed in VIEW CONTROLLER", self.bean.name);
 }
 
-- (IBAction)clickOnDeal:(UIButton *)sender
-{
-    if(sender)
-    {
-        [self _createNewDeckOnUI];
-        _scoreTracker = 0;
+//- (IBAction)clickOnDeal:(UIButton *)sender
+//{
+//    if(sender)
+//    {
+//        [self _createNewDeckOnUI];
+//        _scoreTracker = 0;
+//
+//        self.segmentedControl.enabled = YES;
+//        self.cardDescription.text = @"Lets Play";
+//    }
+//}
 
-        self.segmentedControl.enabled = YES;
-        self.cardDescription.text = @"Lets Play";
-    }
+-(void)clickOnDeal
+{
+    [self _createNewDeckOnUI];
+    _scoreTracker = 0;
+    
+    self.segmentedControl.enabled = YES;
+    self.cardDescription.text = @"Lets Play";
+
 }
 
 - (void)_createNewDeckOnUI
@@ -83,13 +100,12 @@
     CardMatchingGame * newCards = [self.game initWithCardCount:30 usingDeck:[self deck]];
     
         self.cardsArray = [NSMutableArray new];
-
-    
         for(NSUInteger i = 0; i < 30; i++)
         {
             PlayingCard* newCardAtIndex = (PlayingCard *)[newCards cardAtIndex:i];
             [self.cardsArray addObject:newCardAtIndex];
             self.score_label.text = [NSString stringWithFormat:@"Score: 0"];
+
         }
 
     [self.collectionView reloadData];
@@ -182,6 +198,13 @@
     [collectionView reloadData];
 }
 
+
+- (void)bean:(PTDBean *)bean serialDataReceived:(NSData *)data
+{
+    if (data) {
+        [self clickOnDeal];
+    }
+}
 
 
 @end

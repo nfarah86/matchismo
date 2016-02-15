@@ -15,7 +15,5 @@
 
 @interface BeanViewController : UITableViewController
 
-+(BeanViewController*) sharedBeanViewController;
-//- (void)connectToBean:(PTDBean *)bean error:(NSError **)error;
 
 @end
